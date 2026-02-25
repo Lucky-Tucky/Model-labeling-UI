@@ -5,3 +5,13 @@ interface BoundingBox {
     width : number;
     height : number;
 }
+
+interface Options {
+    label: Label[];
+    options : string[];
+}
+
+interface Label {
+    level: number;
+    label: string;
+}

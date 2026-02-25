@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, QueryList, ViewChildren } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-data-label-container',
@@ -9,6 +9,9 @@ import { MatIcon } from '@angular/material/icon';
 export class DataLabelContainer {
 
   @ViewChildren("boxElement") boxes!: QueryList<ElementRef<HTMLDivElement>>;
+
+  @HostBinding('style.width.px')
+  @Input() width : number = 2;
 
   boxCoordinates : BoundingBox[] = [];
 
