@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class Sidebar {
 
-  options: Options[] =[
+  options: Options =
     {
       label: [
         {
@@ -22,15 +22,18 @@ export class Sidebar {
       ],
       options: ["Option 1", "Option 1.1"] 
     }
-  ];
+  ;
 
   ngOnInit(){
     this.sortingOptions();
   }
 
+  get lastOptionLevel(): number {
+    const n : number = this.options.label.length
+    return this.options.label[n - 1].level;
+  }
+
   sortingOptions(){
-    this.options.forEach(option => {
-      option.label.sort((a,b) => a.level - b.level);
-    });
+    this.options.label.sort((a,b) => a.level - b.level);
   }
 }

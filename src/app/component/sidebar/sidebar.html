@@ -1,9 +1,27 @@
 <div class="container">
-    <div>
+
+    <ng-template #sidebarTemplate let-data="data" let-level="level">
+        <div class="label" [ngStyle]="{'padding-left' : level * 20 + 'px'}">
+            {{data}}
+        </div>
+    </ng-template>
+
+    @for (option of options.label; track $index) {
+    <ng-container [ngTemplateOutlet]="sidebarTemplate" [ngTemplateOutletContext]="{data : option.label , level : option.level}">
+    </ng-container>
+    }
+
+    <div [ngStyle]="{'padding-left': lastOptionLevel * 20 + 'px'}">
         <ul>
-            <li>Option 1</li>
-            <li>Option 2</li>
-            <li>Option 3</li>
+            <li class="option" *ngFor="let option of options.options">
+                <input name="{{option}}" type="checkbox">{{option}}
+            </li>
         </ul>
     </div>
+    <!-- <ul>
+        <li>Option 1</li>
+        <li>Option 2</li>
+        <li>Option 3</li>
+    </ul> -->
+
 </div>
