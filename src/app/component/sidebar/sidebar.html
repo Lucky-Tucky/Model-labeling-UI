@@ -14,14 +14,9 @@
     <div [ngStyle]="{'padding-left': lastOptionLevel * 20 + 'px'}">
         <ul>
             <li class="option" *ngFor="let option of options.options">
-                <input name="{{option}}" type="checkbox">{{option}}
+                <input [value]="option" [(ngModel)]="optionValue" name="option" type="radio">{{option}}
             </li>
         </ul>
     </div>
-    <!-- <ul>
-        <li>Option 1</li>
-        <li>Option 2</li>
-        <li>Option 3</li>
-    </ul> -->
 
 </div>

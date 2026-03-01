@@ -10,8 +10,12 @@ export class DataLabelContainer {
 
   @ViewChildren("boxElement") boxes!: QueryList<ElementRef<HTMLDivElement>>;
 
+  /** Option to label in image */
+  @Input() labelOption : string|null = null;
+
   @HostBinding('style.width.px')
   @Input() width : number = 2;
+  
 
   boxCoordinates : BoundingBox[] = [];
 
@@ -21,8 +25,11 @@ export class DataLabelContainer {
     const ele = event.target as HTMLElement;
     const rect = ele.getBoundingClientRect();
 
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+
+      x = Math.max(0, Math.min(x, rect.width - 100));
+  y = Math.max(0, Math.min(y, rect.height - 100));
 
     this.boxCoordinates.push({ id: new Date().getTime(), x, y, width: 100, height: 100 });
 
@@ -43,6 +50,10 @@ export class DataLabelContainer {
     event.stopPropagation();
     console.log("Deleting box at index: ", index);
     this.boxCoordinates.splice(index,1);
+  }
+
+  get disableSelection() : boolean {
+    return this.labelOption==null;
   }
 
 }

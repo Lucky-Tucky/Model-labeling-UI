@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
   standalone:false
 })
 export class Sidebar {
+
+  /**Emit option Value */
+  @Output() optionEmitter : EventEmitter<string|null> = new EventEmitter();
+
+  private _optionValue : string | null = null; 
 
   options: Options =
     {
@@ -21,8 +26,8 @@ export class Sidebar {
         }
       ],
       options: ["Option 1", "Option 1.1"] 
-    }
-  ;
+    };
+
 
   ngOnInit(){
     this.sortingOptions();
@@ -36,4 +41,14 @@ export class Sidebar {
   sortingOptions(){
     this.options.label.sort((a,b) => a.level - b.level);
   }
+
+  get optionValue() : string|null {
+    return this._optionValue;
+  }
+
+  set optionValue(value:string|null){
+    this._optionValue=value;
+    this.optionEmitter.emit(value);
+  }
+  
 }

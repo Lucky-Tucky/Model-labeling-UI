@@ -1,14 +1,14 @@
 <div class="container">
-    <img (click)="handleClick($event)" [src]="'https://picsum.photos/1000/500'" alt="" draggable="false">
-
+    <img (click)="!disableSelection && handleClick($event)" [src]="'https://picsum.photos/1000/500'" alt="" draggable="false">
     @for(box of boxCoordinates ; track box.id){
+
     <div class="box" [ngStyle]="{
             left: `${box.x}px`,
             top: `${box.y}px`,
             width: `${box.width}px`,
             height: `${box.height}px`
         }" (click)="$event.stopPropagation()" #boxElement>
-        <span style="color: red;" (click)="deleteBox($event,$index)"><mat-icon>delete</mat-icon></span>
+        <span style="color: red;" (click)="deleteBox($event,$index)"> {{labelOption}}<mat-icon>delete</mat-icon></span>
     </div>
     }
 </div>
